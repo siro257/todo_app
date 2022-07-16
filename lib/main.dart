@@ -115,6 +115,7 @@ class _TextWidgetState extends State<TextWidget> {
             children: [
               // for (var i in toDoList)
               for (var i = 0; i < toDoList.length; i++)
+                // TODO:
                 // Widgetize this Widget
                 // pass in the index number when creating one
                 // use that index to complete the task/not
@@ -138,10 +139,16 @@ class _TextWidgetState extends State<TextWidget> {
                         ),
                       ),
                     ),
-                    leading: Icon(Icons.border_color),
+                    leading: IconButton(
+                      icon: Icon(Icons.border_color),
+                      onPressed: () => print("EDIT!!!!!!"),
+                      splashRadius: 20.0,
+                    ),
                     trailing: IconButton(
                       icon: Icon(Icons.remove),
                       onPressed: () => _deleteItem(i),
+                      hoverColor: Colors.red.shade100.withOpacity(0.5),
+                      splashRadius: 20.0,
                     ),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(color: Colors.black, width: 1),
