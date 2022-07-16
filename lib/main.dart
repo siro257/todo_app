@@ -29,20 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,32 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
             const TextWidget(),
-          ],
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            FloatingActionButton(
-              onPressed: _decrementCounter,
-              tooltip: 'Decrement',
-              child: const Icon(Icons.remove, color: Colors.deepOrange),
-            ),
-            FloatingActionButton(
-              onPressed: _incrementCounter,
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            ),
           ],
         ),
       ),
@@ -96,12 +57,25 @@ class TextWidget extends StatefulWidget {
 class _TextWidgetState extends State<TextWidget> {
   List<String> toDoList = [];
   final fieldText = TextEditingController();
+  bool _isCompleted = false;
 
   void _addValue(String value) {
     setState(() {
       toDoList.add(value);
     });
     fieldText.clear();
+  }
+
+  void _deleteItem(int idx) {
+    setState(() {
+      toDoList.removeAt(idx);
+    });
+  }
+
+  void _toggleTask() {
+    setState(() {
+      _isCompleted = !_isCompleted;
+    });
   }
 
   @override
@@ -139,10 +113,41 @@ class _TextWidgetState extends State<TextWidget> {
         Center(
           child: Column(
             children: [
-              for (var i in toDoList)
-                Text(
-                  i,
-                  style: Theme.of(context).textTheme.headline2,
+              // for (var i in toDoList)
+              for (var i = 0; i < toDoList.length; i++)
+                // Widgetize this Widget
+                // pass in the index number when creating one
+                // use that index to complete the task/not
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: ListTile(
+                    title: InkWell(
+                      onTap: _toggleTask,
+                      child: Text(
+                        toDoList[i],
+                        style: TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.w300,
+                          letterSpacing: 0.25,
+                          decoration: _isCompleted
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          color: _isCompleted
+                              ? Colors.grey.shade400
+                              : Colors.black,
+                        ),
+                      ),
+                    ),
+                    leading: Icon(Icons.border_color),
+                    trailing: IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () => _deleteItem(i),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black, width: 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
                 ),
             ],
           ),

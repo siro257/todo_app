@@ -20,5 +20,8 @@ samples, guidance on mobile development, and a full API reference.
 -   [x] Texfield
 -   [x] Add Task
 -   [x] List of tasks
--   [] Delete Button
+-   [x] Delete Button
 -   [] Tap task to complete/un-complete
+    -   [] TODO: move category from "in-progress" to "complete" (something like that)
+-   [] Edit Task
+-   ~~sdfasdf~~
