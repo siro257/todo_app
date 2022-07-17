@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/constants.dart';
 
 import 'Todo.dart';
 
@@ -21,9 +22,14 @@ class _TodoListState extends State<TodoList> {
   }
 
   void _addItem(String value) {
+    if (value == null || value.isEmpty || value.trim() == '') {
+      return null;
+    }
+
     setState(() {
-      toDoList.add(value);
+      toDoList.add(value.trim());
     });
+    // print(value.trim());
     fieldText.clear();
     myFocusNode.requestFocus();
   }
@@ -49,21 +55,27 @@ class _TodoListState extends State<TodoList> {
         Padding(
           // padding: const EdgeInsets.symmetric(horizontal: 250, vertical: 16),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-          child: TextField(
+          child: TextFormField(
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please Enter some text";
+              }
+              return null;
+            },
             keyboardType: TextInputType.text,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
-                  color: Colors.amber,
+                  color: PRIMARYCOLOR,
                   width: 3.0,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
-                  color: Colors.amber,
+                  color: PRIMARYCOLOR,
                   width: 5.0,
                 ),
               ),
@@ -71,7 +83,7 @@ class _TodoListState extends State<TodoList> {
               filled: true,
               fillColor: Colors.grey[250],
             ),
-            onSubmitted: _addItem,
+            onFieldSubmitted: _addItem,
             controller: fieldText,
             focusNode: myFocusNode,
           ),

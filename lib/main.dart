@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/SecondRoute.dart';
+import 'package:flutter_todo_app/constants.dart';
 
 import 'TodoList.dart';
 
@@ -35,11 +37,14 @@ class MyToDoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DismissKeyboard(
       child: MaterialApp(
-        title: 'Todo App',
         theme: ThemeData(
-          primarySwatch: Colors.amber,
+          primarySwatch: PRIMARYCOLOR,
         ),
-        home: const MyHomePage(title: 'Todos'),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const MyHomePage(title: "Todos"),
+          '/second': (context) => const SecondRoute()
+        },
       ),
     );
   }
@@ -63,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: () => print("do somethign"),
+              onTap: () => Navigator.pushNamed(context, '/second'),
               child: Icon(Icons.menu),
             ),
           )

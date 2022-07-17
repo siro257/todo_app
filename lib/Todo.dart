@@ -20,16 +20,21 @@ class Todo extends StatefulWidget {
 class _TodoState extends State<Todo> {
   bool _isCompleted = false;
   bool _isEditing = false;
-  final _controller = TextEditingController();
+
+  late TextEditingController _controller;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -42,6 +47,7 @@ class _TodoState extends State<Todo> {
   void _toggleEdit() {
     if (!_isEditing) {
       _controller.text = widget.task;
+      _focusNode.requestFocus();
     }
     setState(() {
       _isEditing = !_isEditing;
@@ -73,6 +79,7 @@ class _TodoState extends State<Todo> {
                     _toggleEdit();
                   },
                   controller: _controller,
+                  focusNode: _focusNode,
                 )
               : Padding(
                   padding: const EdgeInsets.only(left: 8.0),
