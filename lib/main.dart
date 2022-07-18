@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'TodoList.dart';
 
 void main() {
-  runApp(const MyToDoApp());
+  runApp(MyToDoApp());
 }
 
 class DismissKeyboard extends StatelessWidget {
@@ -29,7 +30,7 @@ class DismissKeyboard extends StatelessWidget {
 }
 
 class MyToDoApp extends StatelessWidget {
-  const MyToDoApp({Key? key}) : super(key: key);
+  MyToDoApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
