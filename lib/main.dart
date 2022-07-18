@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/SecondRoute.dart';
 import 'package:flutter_todo_app/constants.dart';
 
 import 'TodoList.dart';
@@ -38,12 +37,11 @@ class MyToDoApp extends StatelessWidget {
     return DismissKeyboard(
       child: MaterialApp(
         theme: ThemeData(
-          primarySwatch: PRIMARYCOLOR,
+          primarySwatch: primaryColor,
         ),
         initialRoute: '/',
         routes: {
           '/': (context) => const MyHomePage(title: "Todos"),
-          '/second': (context) => const SecondRoute()
         },
       ),
     );
@@ -59,25 +57,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selctedIdx = 0;
+
+  static const List<Widget> _widgetOptions = [TodoList(), Text("history")];
+
+  void _onItemTapped(int idx) {
+    setState(() {
+      _selctedIdx = idx;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/second'),
-              child: Icon(Icons.menu),
-            ),
-          )
-        ],
       ),
-      body: ListView(
-        children: const <Widget>[
-          TodoList(),
+      body: Center(
+        child: _widgetOptions.elementAt(_selctedIdx),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time),
+            label: 'History',
+          ),
         ],
+        currentIndex: _selctedIdx,
+        selectedItemColor: Colors.indigo[800],
+        onTap: _onItemTapped,
       ),
     );
   }

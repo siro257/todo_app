@@ -22,8 +22,8 @@ class _TodoListState extends State<TodoList> {
   }
 
   void _addItem(String value) {
-    if (value == null || value.isEmpty || value.trim() == '') {
-      return null;
+    if (value.isEmpty || value.trim() == '') {
+      return;
     }
 
     setState(() {
@@ -49,8 +49,7 @@ class _TodoListState extends State<TodoList> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
       children: <Widget>[
         Padding(
           // padding: const EdgeInsets.symmetric(horizontal: 250, vertical: 16),
@@ -68,14 +67,14 @@ class _TodoListState extends State<TodoList> {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
-                  color: PRIMARYCOLOR,
+                  color: primaryColor,
                   width: 3.0,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
-                  color: PRIMARYCOLOR,
+                  color: primaryColor,
                   width: 5.0,
                 ),
               ),

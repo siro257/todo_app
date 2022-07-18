@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-const MaterialColor PRIMARYCOLOR = Colors.indigo;
+const MaterialColor primaryColor = Colors.indigo;
