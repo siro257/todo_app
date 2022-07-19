@@ -126,13 +126,6 @@ class _TodoListState extends State<TodoList> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     offset: const Offset(0, 10),
-                  //     blurRadius: 50,
-                  //     color: kPrimaryColor.withOpacity(0.5),
-                  //   ),
-                  // ],
                 ),
                 child: TextFormField(
                   validator: (value) {
@@ -160,18 +153,6 @@ class _TodoListState extends State<TodoList> {
         Expanded(
           child: ListView(
             children: [
-              // Container(
-              //   padding: const EdgeInsets.only(left: 32),
-              //   child: Text(
-              //     _todoList.length <= 1
-              //         ? "${_todoList.length} task"
-              //         : "${_todoList.length} tasks",
-              //     style: Theme.of(context).textTheme.caption,
-              //   ),
-              // ),
-              // const Divider(
-              //   color: Colors.black45,
-              // ),
               for (var i = 0; i < _todoList.length; i++)
                 Todo(
                   id: i,
