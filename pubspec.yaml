@@ -12,6 +12,7 @@ dependencies:
     flutter:
         sdk: flutter
     shared_preferences:
+    material_color_generator:
 
     cupertino_icons: ^1.0.2
 

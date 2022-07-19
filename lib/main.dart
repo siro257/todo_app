@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:material_color_generator/material_color_generator.dart';
 
-import 'TodoList.dart';
+import 'home_screen.dart';
 
 void main() {
-  runApp(MyToDoApp());
+  runApp(const MyToDoApp());
 }
 
 class DismissKeyboard extends StatelessWidget {
@@ -30,7 +30,7 @@ class DismissKeyboard extends StatelessWidget {
 }
 
 class MyToDoApp extends StatelessWidget {
-  MyToDoApp({Key? key}) : super(key: key);
+  const MyToDoApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -38,59 +38,12 @@ class MyToDoApp extends StatelessWidget {
     return DismissKeyboard(
       child: MaterialApp(
         theme: ThemeData(
-          primarySwatch: primaryColor,
+          primarySwatch: generateMaterialColor(color: kPrimaryColor),
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => const MyHomePage(title: "Todos"),
+          '/': (context) => const HomeScreen(title: "Todos"),
         },
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selctedIdx = 0;
-
-  static const List<Widget> _widgetOptions = [TodoList(), Text("history")];
-
-  void _onItemTapped(int idx) {
-    setState(() {
-      _selctedIdx = idx;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selctedIdx),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
-            label: 'History',
-          ),
-        ],
-        currentIndex: _selctedIdx,
-        selectedItemColor: Colors.indigo[800],
-        onTap: _onItemTapped,
       ),
     );
   }
